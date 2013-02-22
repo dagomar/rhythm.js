@@ -29,17 +29,18 @@
       // Make sure this runs after an image is loaded and has height.
       if($(this).is('img') && h === 0) {
         $(this).load(function() {
-          $(this).rhythm();
+          $(this).rhythm(offset);
         });
       }
 
       // For inline items, this will set the image exactly on the baseline.
       if(d == 'inline' || d == 'inline-block'){
         $(this).css('margin-top', cm + lh - m - o);
+        console.log(cm + lh - m - o);
       } else {
         // Add margin for block items.
         if(m !== 0) {
-          $(this).css('margin-bottom', cm + lh - m);
+          $(this).wrap('<div style="padding-bottom: 1px" />').css('margin-bottom', cm + lh - m -1);
         }
       }
 
