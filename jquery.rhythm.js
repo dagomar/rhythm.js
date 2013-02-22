@@ -29,7 +29,7 @@
 
       if(typeof($(this).data('rhythm')) === "undefined"){
         cm = parseInt($(this).css('margin-bottom'), 10);
-        $(this).data('rhythm', {om: cm});
+        $(this).data('rhythm', {om: cm, wrapped: false});
 
       } else {
         cm = $(this).data('rhythm').om;
@@ -45,11 +45,14 @@
       // For inline items, this will set the image exactly on the baseline.
       if(d == 'inline' || d == 'inline-block'){
         $(this).css('margin-top', cm + lh - m - o);
-        console.log(cm + lh - m - o);
       } else {
         // Add margin for block items.
         if(m !== 0) {
-          $(this).wrap('<div style="padding-bottom: 1px" />').css('margin-bottom', cm + lh - m -1);
+          $(this).css('margin-bottom', cm + lh - m -1);
+          if($(this).data('rhythm').wrapped === false){
+            $(this).wrap('<div style="padding-bottom: 1px" />');
+            $(this).data('rhythm').wrapped = true;
+          }
         }
       }
 
