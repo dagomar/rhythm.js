@@ -23,8 +23,17 @@
     return this.each(function() {
       var h = $(this).outerHeight(); // Height
       var m = h % lh; // Height modulo Lineheight
-      var cm = parseInt($(this).css('margin-bottom'), 10); // Current margin
+
+      var cm; // Current margin
       var d = $(this).css('display'); // Display
+
+      if(typeof($(this).data('rhythm')) === "undefined"){
+        cm = parseInt($(this).css('margin-bottom'), 10);
+        $(this).data('rhythm', {om: cm});
+
+      } else {
+        cm = $(this).data('rhythm').om;
+      }
 
       // Make sure this runs after an image is loaded and has height.
       if($(this).is('img') && h === 0) {
@@ -45,5 +54,5 @@
       }
 
     });
-  };
+};
 })(jQuery);
